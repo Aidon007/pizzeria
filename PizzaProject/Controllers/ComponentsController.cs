@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PizzaProject.Models;
 
 namespace PizzaProject.Controllers
@@ -31,6 +32,34 @@ namespace PizzaProject.Controllers
                 return NotFound();
             }
             return Ok(component);
+        }
+
+        [HttpPost]
+        public IActionResult Create(Components newComponent)
+        {
+            _context.Add(newComponent);
+            _context.SaveChanges();
+            //201
+            return StatusCode(201, newComponent ); //201, 202
+        }
+        [HttpPut]
+        public IActionResult Update(Components updatedComponent)
+        {
+            if(_context.Components.Count(e => e.IdComponent == updatedComponent.IdComponent) == 0)
+            {
+                return NotFound();
+            }
+
+            _context.Components.Attach(updatedComponent);
+            _context.Entry(updatedComponent).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return Ok(updatedComponent);
+        }
+        [HttpDelete("{}")]
+        public IActionResult Delete()
+        {
+            return null;
         }
     }
 }

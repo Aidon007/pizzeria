@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PizzaProject.Models
 {
@@ -11,6 +12,8 @@ namespace PizzaProject.Models
         }
 
         public int IdComponent { get; set; }
+        [Required(ErrorMessage = "Nazwa komponentu jest wymagana")]
+        [MaxLength(10, ErrorMessage = "Nazwa komponentu nie m")]
         public string NameComponent { get; set; }
 
         public virtual ICollection<PizzaComponent> PizzaComponent { get; set; }
