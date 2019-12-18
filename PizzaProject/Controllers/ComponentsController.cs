@@ -56,10 +56,18 @@ namespace PizzaProject.Controllers
 
             return Ok(updatedComponent);
         }
-        [HttpDelete("{}")]
-        public IActionResult Delete()
+        [HttpDelete("{IdComponent:int}")]
+        public IActionResult Delete(int idComponent)
         {
-            return null;
+            var component = _context.Components.FirstOrDefault(e => e.IdComponent == idComponent);
+            if(component == null)
+            {
+                return NotFound();
+            }
+            _context.Components.Remove(component);
+            _context.SaveChanges();
+
+            return Ok(component);
         }
     }
 }

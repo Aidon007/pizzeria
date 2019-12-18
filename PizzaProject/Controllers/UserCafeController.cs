@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PizzaProject.Models;
 
 namespace PizzaProject.Controllers
@@ -31,6 +32,42 @@ namespace PizzaProject.Controllers
                 return NotFound();
             }
             return Ok(order);
+        }
+
+        [HttpPost]
+        public IActionResult Create(UserCafe newUserCafe)
+        {
+            _context.Add(newUserCafe);
+            _context.SaveChanges();
+            //201
+            return StatusCode(202, newUserCafe); //201, 202
+        }
+        [HttpPut]
+        public IActionResult Update(UserCafe updatedUserCafe)
+        {
+            if (_context.UserCafe.Count(e => e.IdUser == updatedUserCafe.IdUser) == 0)
+            {
+                return NotFound();
+            }
+
+            _context.UserCafe.Attach(updatedUserCafe);
+            _context.Entry(updatedUserCafe).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return Ok(updatedUserCafe);
+        }
+        [HttpDelete("{IdUser:int}")]
+        public IActionResult Delete(int IdUser)
+        {
+            var user = _context.UserCafe.FirstOrDefault(e => e.IdUser == IdUser);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            _context.UserCafe.Remove(user);
+            _context.SaveChanges();
+
+            return Ok(user);
         }
     }
 }
