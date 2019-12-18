@@ -18,11 +18,28 @@ namespace PizzaProject.Controllers
         {
             _context = context;
         }
+
+        /// - przed metodą
+        // Swashbuckle.AspNetCore - biblioteka
+
+        //int wiek = 10;
+        //var cos=$"Ala {wiek} m kota";     to samo co      String.format("");
+        //
+
+
+        /// <summary>
+        /// Metoda zwraca komponenty
+        /// </summary>
+        /// <returns>
+        /// Lista objektow reprezentująca komponenty
+        /// </returns>
+        /// OpenAPI
         [HttpGet]
         public IActionResult GetComponents()
         {
             return Ok(_context.Components.ToList());
         }
+
         [HttpGet("{id:int}")]
         public IActionResult GetComponent(int id)
         {

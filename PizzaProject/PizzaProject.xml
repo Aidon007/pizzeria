@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PizzaProject</name>
+    </assembly>
+    <members>
+        <member name="M:PizzaProject.Controllers.ComponentsController.GetComponents">
+            <summary>
+            Metoda zwraca komponenty
+            </summary>
+            <returns>
+            Lista objektow reprezentująca komponenty
+            </returns>
+            OpenAPI
+        </member>
+    </members>
+</doc>
